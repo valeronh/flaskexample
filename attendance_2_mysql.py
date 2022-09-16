@@ -1,21 +1,23 @@
 import mysql.connector
 import csv
+from dotenv import dotenv_values
 
 class Attendance2Mysql:
     mydb = None
     mycursor = None
+    config = None
 
     def __init__(self):
+        self.config = dotenv_values(".env")
         self.mydb = self.open_connection()
         self.mycursor = self.mydb.cursor()
         
-
     def open_connection(self):
         mydb=mysql.connector.connect(
-            host="localhost",
-            user="valerys",
-            password="V@le1988",
-            database="valerydb"
+            host=self.config["MYSQL_HOST"],
+            user=self.config["MYSQL_USER"],
+            password=self.config["MYSQL_PASSWORD"],
+            database=self.config["MYSQL_DATABASE"]
         )
         return mydb
 
