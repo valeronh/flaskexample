@@ -6,11 +6,13 @@ class Attendance2Mysql:
     mydb = None
     mycursor = None
     config = None
+    path = None
 
-    def __init__(self):
+    def __init__(self, p):
         self.config = dotenv_values(".env")
         self.mydb = self.open_connection()
         self.mycursor = self.mydb.cursor()
+        self.path = p
         
     def open_connection(self):
         mydb=mysql.connector.connect(
@@ -49,7 +51,7 @@ class Attendance2Mysql:
     def run_test(self):
         self.select_owner()
         self.reset_owner()
-        self.read_csv('attendance.csv')
+        self.read_csv(self.path)
         self.select_owner()
         self.mydb.close()
 
