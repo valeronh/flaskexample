@@ -1,5 +1,5 @@
 import mysql.connector
-import pandas as pd
+import csv
 
 
 def open_connection():
@@ -31,9 +31,10 @@ def insert_owner(name, average):
     mydb.commit()
 
 def read_csv(csvfile):
-    df = pd.read_csv(csvfile)
-    for i, row in df.iterrows():
-        insert_owner(row['names'], row['average'])
+    with open(csvfile, newline='') as file:
+        filereader = csv.reader(file, delimiter=',')
+        for row in filereader:
+            insert_owner(row[1], row[15])
 
 mydb = open_connection()
 mycursor = mydb.cursor()
