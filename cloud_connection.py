@@ -26,6 +26,10 @@ class CloudConnection:
 
     def download_cloud_files(self):
         list = self.list()
+        try:
+            os.mkdir("csv_files")
+        except:
+            print("warning directory exists")
         for key in list.keys():
             self.download_file(key, "csv_files/" + key)
 
