@@ -6,7 +6,7 @@ class CloudConnection:
     config = None
     
     def __init__(self):
-        self.config = dotenv_values(".env")
+        self.config = dotenv_values("../.env")
     
     def list(self):
         with pysftp.Connection(host=self.config["CLOUD_HOSTNAME"], username=self.config["CLOUD_USERNAME"], password=self.config["CLOUD_PASSWORD"]) as sftp:

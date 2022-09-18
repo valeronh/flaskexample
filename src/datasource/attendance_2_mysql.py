@@ -1,18 +1,21 @@
 import mysql.connector
 import csv
 from dotenv import dotenv_values
+import sys, os
 
 class Attendance2Mysql:
     mydb = None
     mycursor = None
     config = None
     path = None
+    argv = None
 
-    def __init__(self, p):
-        self.config = dotenv_values(".env")
+    def __init__(self, argv):
+        self.config = dotenv_values("../.env")
+        self.argv = argv
+        self.validate()
         self.mydb = self.open_connection()
         self.mycursor = self.mydb.cursor()
-        self.path = p
         
     def open_connection(self):
         mydb=mysql.connector.connect(
@@ -22,6 +25,16 @@ class Attendance2Mysql:
             database=self.config["MYSQL_DATABASE"]
         )
         return mydb
+
+    def validate(self):
+        if len(self.argv)>2:
+            sys.exit("Too many arguments, please provide only one argument which is path")
+        if len(self.argv)>1:
+            self.path = self.argv[1]
+            if not os.path.isfile(self.path):
+                sys.exit("No such file")    
+        else:
+            sys.exit("Path to csv file is mandatory")
 
     def select_owner(self):
         print("Contents of the table: ")
