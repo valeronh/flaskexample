@@ -1,6 +1,6 @@
 mysql==0.0.3
 jellyfish==0.9.0
 mysql-connector-python==8.0.30
-Flask=2.2.2
-python-dotenv=0.21.0
-pysftp=0.2.9
+Flask==2.2.2
+python-dotenv==0.21.0
+pysftp==0.2.9
