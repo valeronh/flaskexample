@@ -279,11 +279,7 @@ class Attendance:
         return df
 
 
-    def main(self):
-        if len(sys.argv) != 2:
-            print("must provide ONE path to a directory")
-            exit(1)
-        path = sys.argv[1]
+    def main(self, path):
         if not os.path.isdir(path):
             print("This path is not a directory")
             exit(1)

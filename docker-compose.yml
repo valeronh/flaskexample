@@ -20,8 +20,8 @@ services:
       MYSQL_PASSWORD: 'Aa1234'
       MYSQL_ROOT_PASSWORD: 'Bb1234'
     volumes:
-      - ./db/init:/docker-entrypoint-initdb.d
-      - ./db/var:/var/lib/mysql
+      - /var/run/mysqlDocker/init:/docker-entrypoint-initdb.d
+      - /var/run/mysqlDocker/var:/var/lib/mysql
 
 networks:
   default:

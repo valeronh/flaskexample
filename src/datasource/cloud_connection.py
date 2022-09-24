@@ -1,28 +1,31 @@
 import os
-import pysftp
+import paramiko
 from dotenv import dotenv_values
 
 class CloudConnection:
     config = None
+    sftp = None
+    transport = None
     
-    def __init__(self):
-        self.config = dotenv_values("../.env")
+    def init(self):
+        self.config = dotenv_values(".env")
+        self.open_connection()
+
+    def open_connection(self):
+        self.transport = paramiko.Transport((self.config["CLOUD_HOSTNAME"], 22))
+        self.transport.connect(None, self.config["CLOUD_USERNAME"], self.config["CLOUD_PASSWORD"])
+        self.sftp = paramiko.SFTPClient.from_transport(self.transport)
+        print ("Connection succesfully stablished ... ")
     
     def list(self):
-        with pysftp.Connection(host=self.config["CLOUD_HOSTNAME"], username=self.config["CLOUD_USERNAME"], password=self.config["CLOUD_PASSWORD"]) as sftp:
-            print ("Connection succesfully stablished ... ")
-            sftp.cwd(self.config["CLOUD_PATH"])
-            directory_structure = sftp.listdir_attr()
-            folder_dict = {}
-            for attr in directory_structure:
-                 folder_dict[attr.filename] = attr
-            return folder_dict
+        directory_structure = self.sftp.listdir_attr(self.config["CLOUD_PATH"])
+        folder_dict = {}
+        for attr in directory_structure:
+            folder_dict[attr.filename] = attr
+        return folder_dict
 
     def download_file(self, remoteFilePath, localFilePath):
-        with pysftp.Connection(host=self.config["CLOUD_HOSTNAME"], username=self.config["CLOUD_USERNAME"], password=self.config["CLOUD_PASSWORD"]) as sftp:
-            sftp.cwd(self.config["CLOUD_PATH"])
-            print ("Connection succesfully stablished ... ")
-            sftp.get(remoteFilePath, localFilePath)
+        self.sftp.get(remoteFilePath, localFilePath)
 
     def download_cloud_files(self):
         list = self.list()
@@ -31,7 +34,9 @@ class CloudConnection:
         except:
             print("warning directory exists")
         for key in list.keys():
-            self.download_file(key, "csv_files/" + key)
+            self.download_file(self.config["CLOUD_PATH"] + "/" + key, "csv_files/" + key)
+        if self.sftp: self.sftp.close()
+        if self.transport: self.transport.close()
 
     def run_test(self):
         self.download_cloud_files()

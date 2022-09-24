@@ -8,14 +8,13 @@ class Attendance2Mysql:
     mycursor = None
     config = None
     path = None
-    argv = None
 
-    def __init__(self, argv):
-        self.config = dotenv_values("../.env")
-        self.argv = argv
-        self.validate()
+    def init(self, path):
+        self.config = dotenv_values(".env")
+        self.path = path
         self.mydb = self.open_connection()
         self.mycursor = self.mydb.cursor()
+        self.create_owner_table()
         
     def open_connection(self):
         mydb=mysql.connector.connect(
@@ -26,15 +25,9 @@ class Attendance2Mysql:
         )
         return mydb
 
-    def validate(self):
-        if len(self.argv)>2:
-            sys.exit("Too many arguments, please provide only one argument which is path")
-        if len(self.argv)>1:
-            self.path = self.argv[1]
-            if not os.path.isfile(self.path):
-                sys.exit("No such file")    
-        else:
-            sys.exit("Path to csv file is mandatory")
+    def create_owner_table(self):
+        self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(name VARCHAR(30), average VARCHAR(20))")
+        print("Table is created....")
 
     def select_owner(self):
         print("Contents of the table: ")
@@ -62,6 +55,7 @@ class Attendance2Mysql:
                 self.insert_owner(row[1], row[15])
 
     def run_test(self):
+        self.create_owner_table()
         self.select_owner()
         self.reset_owner()
         self.read_csv(self.path)
