@@ -13,7 +13,7 @@ class Attendance2Mysql:
         self.config = dotenv_values(".env")
         self.path = path
         self.mydb = self.open_connection()
-        self.mycursor = self.mydb.cursor()
+        self.mycursor = self.mydb.cursor(dictionary=True)
         self.create_owner_table()
         
     def open_connection(self):
@@ -32,7 +32,7 @@ class Attendance2Mysql:
     def select_owner(self):
         print("Contents of the table: ")
         self.mycursor.execute("SELECT * from owner")
-        print(self.mycursor.fetchall())
+        return self.mycursor.fetchall()
 
     def reset_owner(self):
         try:
@@ -51,8 +51,9 @@ class Attendance2Mysql:
     def read_csv(self, csvfile):
         with open(csvfile, newline='') as file:
             filereader = csv.reader(file, delimiter=',')
+            next(filereader)
             for row in filereader:
-                self.insert_owner(row[1], row[15])
+                self.insert_owner(row[1], row[-1])
 
     def run_test(self):
         self.create_owner_table()
@@ -60,5 +61,4 @@ class Attendance2Mysql:
         self.reset_owner()
         self.read_csv(self.path)
         self.select_owner()
-        self.mydb.close()
 

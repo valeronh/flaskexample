@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template
 import sys
+import json
 sys.path.insert(1, "src/datasource/")
 from cloud_connection import CloudConnection
 from attendance_2_mysql import Attendance2Mysql
@@ -9,20 +10,30 @@ from attendance import Attendance
 
 app = Flask(__name__)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/')
-def index():
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/flow')
+def flow():
+    return render_template('flow.html')
+
+@app.route('/attendance')
+def attendance():
     sftp_connection = CloudConnection()
     sftp_connection.init()
     sftp_connection.download_cloud_files()
     attendance = Attendance()
     attendance.main("csv_files/")
     attendance2mysql = Attendance2Mysql()
-    app.logger.info("05")
     attendance2mysql.init("attendance.csv")
-    app.logger.info("06")
     attendance2mysql.run_test()
-    app.logger.info("07")
-    return "Hello my WEB app using flask!!"
+    return render_template('attendance.html', tables=attendance2mysql.select_owner())
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
