@@ -2,3 +2,4 @@ venv/
 __pycache__/
 csv_files/*
 attendance.csv
+db/

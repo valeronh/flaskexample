@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    image: valeron12345/flask_app:1.0.0
+    image: valeron12345/flask_app:latest
     links:
       - mysql
     ports:
