@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  app:
+    image: valeron12345/flask_app:1.0.0
+    links:
+      - mysql
+    ports:
+      - "5000:5000"
+    working_dir: /app
+    depends_on:
+      - mysql
+        
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'valerydb'
+      MYSQL_USER: 'valerys'
+      MYSQL_PASSWORD: 'Aa1234'
+      MYSQL_ROOT_PASSWORD: 'Bb1234'
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/var:/var/lib/mysql
+
+networks:
+  default:
+    external: false
+    name: app_network
