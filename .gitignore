@@ -3,3 +3,4 @@ __pycache__/
 csv_files/*
 attendance.csv
 db/
+.env
