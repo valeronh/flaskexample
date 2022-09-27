@@ -27,17 +27,14 @@ class Attendance2Mysql:
 
     def create_owner_table(self):
         self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), average VARCHAR(20), PRIMARY KEY(id))")
-        print("Table is created....")
 
     def select_owner(self):
-        print("Contents of the table: ")
         self.mycursor.execute("SELECT * from owner")
         return self.mycursor.fetchall()
 
     def reset_owner(self):
         try:
             self.mycursor.execute("DROP TABLE  owner")
-            print("Old table deleted...")
             self.mydb.commit()
             self.mydb.flush()
         except:
