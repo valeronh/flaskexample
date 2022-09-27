@@ -26,7 +26,7 @@ class Attendance2Mysql:
         return mydb
 
     def create_owner_table(self):
-        self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(name VARCHAR(30), average VARCHAR(20))")
+        self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), average VARCHAR(20))")
         print("Table is created....")
 
     def select_owner(self):
