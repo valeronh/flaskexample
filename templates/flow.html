@@ -1,19 +1,19 @@
 {% include "base.html" %}
 {% block content  %}
 <h1 style="text-align:center"><b>Flow</b></h1>
-<h3><b>Pre-processing:</b></h3>
+<h3><b style="color: black">Pre-processing:</b></h3>
 <h4><a href="https://github.com/valeronh/flaskexample/blob/main/src/datasource/cloud_connection.py" style="color: cyan">cloud_connection.py</a></h4>
 <h5>Downloading raw csv files that are generated after class meetings and saved on Amazon remote machine, using SFTP.</h5>
-<h3><b>Data-processing:</b></h3>
+<h3><b style="color: black">Data-processing:</b></h3>
 <h4><a href="https://github.com/valeronh/flaskexample/blob/main/src/attendance.py" style="color: cyan">attendance.py</a></h4>
 <h5>Runnig class attendance algorithm which was writen by Yona Bloy(<a href="https://github.com/natibloy/bynet" style="color: cyan">Original file</a>) on the raw files. Summarized attendance.csv output file is generated.</h5>
-<h3><b>Data-storing:</b></h3>
+<h3><b style="color: black">Data-storing:</b></h3>
 <h4><a href="https://github.com/valeronh/flaskexample/blob/main/src/datasource/attendance_2_mysql.py" style="color: cyan">attendance_2_mysql.py</a></h4>
 <h5>The output file is stored in Mysql database.</h5>
-<h3><b>Client presentation:</b></h3>
+<h3><b style="color: black">Client presentation:</b></h3>
 <h4><a href="https://github.com/valeronh/flaskexample/blob/main/flask_app.py" style="color: cyan">flask_app.py</a></h4>
 <h5>The data from the database is presented to the user in form of a web service over port 5000.</h5>
-<h3><b>Application dockerization:</b></h3>
+<h3><b style="color: black">Application dockerization:</b></h3>
 <h4><a href="https://github.com/valeronh/flaskexample/blob/main/Dockerfile" style="color: cyan">Dockerfile</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/valeronh/flaskexample/blob/main/docker-compose.yml" style="color: cyan">docker-compose.yml</a></h4>
 <h5>My docker image is based on ubuntu:22.04 image. I added pyhton3, mysql-client and the application requirment modules that i used to the image.</h5>
 <h5>My flask web service runs as two containers with shared network. One runs Mysql server and the other one runs flask web application.</h5>
