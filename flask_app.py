@@ -32,7 +32,7 @@ def attendance():
     attendance.main("csv_files/")
     attendance2mysql = Attendance2Mysql()
     attendance2mysql.init("attendance.csv")
-    attendance2mysql.run_test()
+    attendance2mysql.run_main()
     return render_template('attendance.html', tables=attendance2mysql.select_owner())
 
 if __name__ == "__main__":

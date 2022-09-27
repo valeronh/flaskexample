@@ -6,6 +6,6 @@ if __name__ == "__main__":
     if len(sys.argv)>1:
         att = Attendance2Mysql()
         att.init(sys.argv[1])
-        att.run_test()
+        att.run_main()
     else:
         sys.exit("Path is mandatory")

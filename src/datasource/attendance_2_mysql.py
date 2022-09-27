@@ -53,10 +53,8 @@ class Attendance2Mysql:
             for row in filereader:
                 self.insert_owner(row[1], row[-1])
 
-    def run_test(self):
+    def run_main(self):
         self.reset_owner()
         self.create_owner_table()
-        self.select_owner()
         self.read_csv(self.path)
-        self.select_owner()
 
