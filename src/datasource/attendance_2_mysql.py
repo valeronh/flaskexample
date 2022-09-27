@@ -26,7 +26,7 @@ class Attendance2Mysql:
         return mydb
 
     def create_owner_table(self):
-        self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), average VARCHAR(20))")
+        self.mycursor.execute("CREATE TABLE IF NOT EXISTS owner(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), average VARCHAR(20), PRIMARY KEY(id))")
         print("Table is created....")
 
     def select_owner(self):
@@ -36,7 +36,8 @@ class Attendance2Mysql:
 
     def reset_owner(self):
         try:
-            self.mycursor.execute("DELETE FROM owner")
+            self.mycursor.execute("DROP TABLE  owner")
+            print("Old table deleted...")
             self.mydb.commit()
             self.mydb.flush()
         except:
@@ -56,9 +57,9 @@ class Attendance2Mysql:
                 self.insert_owner(row[1], row[-1])
 
     def run_test(self):
+        self.reset_owner()
         self.create_owner_table()
         self.select_owner()
-        self.reset_owner()
         self.read_csv(self.path)
         self.select_owner()
 

@@ -1,10 +1,12 @@
 {% include "base.html" %}
 {% block content %}
-<table class="w3-table w3-centered w3-bordered w3-hoverable">
-	<th style="color: cyan">Student Names</th>
+<table class="w3-table w3-bordered w3-hoverable">
+	<th style="color: cyan">Student No.</th>
+	<th style="color: cyan">Student Name</th>
 	<th style="color: cyan">Average Attendance Precentage</th>
 {% for table in tables %}
 	<tr>
+	<td> {{ table.id }} </td>
 	<td> {{ table.name }} </td>
 	<td> {{ table.average }} </td>
 	</tr>
