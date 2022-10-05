@@ -1,4 +1,5 @@
-# Course Attendance Application 
+# Course Attendance Application # 
+
 **Description:**
 #### Webex class attendance calculative application ####
 - Raw csv files according to classes attendance are downloaded from a remote Amazon server.
@@ -15,15 +16,17 @@
 **Installation:**
 - Clone the repository: `git clone https://github.com/valeronh/flaskexample.git`
 - Create `.env` file in your local repository that will contain:
-    - MYSQL_HOST="HOST NAME"
-    - MYSQL_USER="USER NAME"
-    - MYSQL_PASSWORD="PASSWORD"
-    - MYSQL_DATABASE="DATABASE NAME"
-
-    - CLOUD_HOSTNAME="REMOTE SERVER IP"
-    - CLOUD_USERNAME="USERNAME"
-    - CLOUD_PASSWORD="PASSWORD"
-    - CLOUD_PATH="DIRECTORY PATH"
+  
+    | Variable: | Explanation: |
+    | :-------: | :----------: |
+    | MYSQL_HOST | Choose MYSQL HOST name |
+    | MYSQL_USER | Choose MYSQL USER name |
+    | MYSQL_PASSWORD | Choose MYSQL PASSWORD |
+    | MYSQL_DATABASE | Choose MYSQL DATABASE name |
+    | CLOUD_HOSTNAME | Write remote machine IP |
+    | CLOUD_USERNAME | Write remote macchine USERNAME |
+    | CLOUD_PASSWORD | Write remote machine PASSWORD |
+    | CLOUD_PATH | Write the path to files directory on the remote machine |
   
 - Table creation commad(The table is created automatically):
     - `CREATE TABLE IF NOT EXISTS owner(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), average VARCHAR(20), PRIMARY KEY(id))`
