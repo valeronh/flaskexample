@@ -14,11 +14,8 @@ services:
     image: mysql:5.7
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_DATABASE: 'valerydb'
-      MYSQL_USER: 'valerys'
-      MYSQL_PASSWORD: 'Aa1234'
-      MYSQL_ROOT_PASSWORD: 'Bb1234'
+    env_file:
+      - .env
     volumes:
       - /var/run/mysqlDocker/init:/docker-entrypoint-initdb.d
       - /var/run/mysqlDocker/var:/var/lib/mysql
