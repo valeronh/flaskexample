@@ -1,12 +1,14 @@
 version: "3.8"
 services:
   app:
-    image: valeron12345/flask_app:latest
+    image: valeron12345/flask_app:2.0.0
     links:
       - mysql
     ports:
       - "5000:5000"
     working_dir: /app
+    env_file:
+      - .env
     depends_on:
       - mysql
         
